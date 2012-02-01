@@ -6,4 +6,4 @@ author: Theron Boerner
 commands:
   War:
     description: This is a blank command
-    usage: /war [command] type /war help for more info.
+    usage: /war declare [command] type /war help for more info.
