@@ -1,6 +1,6 @@
 main: me.hunterboerner.war.War
 name: War
-version: 0.1
+version: 0.2
 description: A plugin to have wars within MINECRAFT
 author: Theron Boerner
 commands:
