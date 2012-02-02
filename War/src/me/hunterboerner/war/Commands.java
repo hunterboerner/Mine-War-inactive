@@ -1,4 +1,3 @@
-
 package me.hunterboerner.war;
 
 import java.util.logging.Logger;
