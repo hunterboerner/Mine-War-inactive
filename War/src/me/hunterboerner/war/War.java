@@ -1,4 +1,3 @@
-
 package me.hunterboerner.war;
 
 import org.bukkit.plugin.java.JavaPlugin;
