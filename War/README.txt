@@ -1,1 +1,1 @@
-This is a test readme!
+This is the source code for Mine-WAR!
