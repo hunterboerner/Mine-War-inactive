@@ -3,7 +3,6 @@ package me.hunterboerner.war;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
-
 public class War extends JavaPlugin {
 	private Commands cmds;
 	
