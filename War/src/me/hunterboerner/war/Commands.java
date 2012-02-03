@@ -18,10 +18,10 @@ public class Commands implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) { 
-		if(cmd.getName().equalsIgnoreCase("war")){ //if the player typed /war, do the following
+		if(cmd.getName().equalsIgnoreCase("war")) { //ADD PERMISSIONS HERE BEFORE { if (player.hasPermission("ENTER.PERMISSIONS.HERE"))
 			Logger log = Logger.getLogger("Minecraft");
 			Player player = (Player) sender;
-				if (!(sender instanceof Player)) {
+				if (!(sender instanceof Player)) {)
 					sender.sendMessage("This Command can only be run by a player!");
 					
 				return true;
