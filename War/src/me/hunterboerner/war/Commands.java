@@ -42,15 +42,23 @@ public class Commands implements CommandExecutor {
 						player.sendMessage(ChatColor.RED + "You have declared war on " + args[1]);
 						player.getServer().broadcastMessage(ChatColor.RED + player.getDisplayName() + " has declared war on " + args[1]);
 						log.info("[War] " + player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
-					return true;
+				return true;
 					}
 					else {
 						player.sendMessage("Error, incorrect!");
 					}
+					//end of declare
+					
 					
 				return true;
-				
 				}
+				else if (args[0].equals("world")) {
+					player.sendMessage(ChatColor.RED + "You have started a world war!");
+					player.getServer().broadcastMessage(ChatColor.RED + player.getDisplayName() + " has started a world war!");
+					log.info("[War] " + player.getDisplayName() + " used " + "/war " + args[0]);
+					return true;
+				}
+				//end of world
 				
 		// if this happened the function will break and return true. Otherwise it will go to false.
 		}
