@@ -18,7 +18,7 @@ public class Commands implements CommandExecutor {
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) { 
-		if(cmd.getName().equalsIgnoreCase("war")) { //ADD PERMISSIONS HERE BEFORE { if (player.hasPermission("ENTER.PERMISSIONS.HERE"))
+		if(cmd.getName().equalsIgnoreCase("war")) { //ADD PERMISSIONS HERE BEFORE this is just a test { if (player.hasPermission("ENTER.PERMISSIONS.HERE"))
 			Logger log = Logger.getLogger("Minecraft");
 			Player player = (Player) sender;
 				if (!(sender instanceof Player)) {)
