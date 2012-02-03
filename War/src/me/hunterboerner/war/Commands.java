@@ -38,6 +38,7 @@ public class Commands implements CommandExecutor {
 				return true;
 				}
 				else if (args[0].equals("declare")) {
+					//TODO Add permissions
 					if (args.length == 2){
 						player.sendMessage(ChatColor.RED + "You have declared war on " + args[1]);
 						player.getServer().broadcastMessage(ChatColor.RED + player.getDisplayName() + " has declared war on " + args[1]);
@@ -53,6 +54,7 @@ public class Commands implements CommandExecutor {
 				return true;
 				}
 				else if (args[0].equals("world")) {
+					//TODO add permissions
 					player.sendMessage(ChatColor.RED + "You have started a world war!");
 					player.getServer().broadcastMessage(ChatColor.RED + player.getDisplayName() + " has started a world war!");
 					log.info("[War] " + player.getDisplayName() + " used " + "/war " + args[0]);
