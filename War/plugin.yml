@@ -7,3 +7,6 @@ commands:
   War:
     description: This is a blank command
     usage: /war declare [command] type /war help for more info.
+permissions:
+  war:
+    description: All permissions

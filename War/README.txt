@@ -3,8 +3,9 @@ More info will be added later:
 Commands:
 	/war
 	/war declare
+	/war truce
 permissions:
-	none at the moment
+	war
 	
 Made by:
 Theron Boerner & Jozeth
