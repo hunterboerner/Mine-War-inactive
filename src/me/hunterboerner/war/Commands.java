@@ -8,20 +8,20 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-
 public class Commands implements CommandExecutor {
 	public Commands(War war) {
 	}
+
 	public void cmds(War plugin) {
 	}
 
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label,
 			String[] args) { 
+		Player player = (Player) sender;
 		if(cmd.getName().equalsIgnoreCase("war")) if (player.hasPermission("war.declare")) {
 			Logger log = Logger.getLogger("Minecraft");
-			Player player = (Player) sender;
-				if (!(sender instanceof Player)) {)
+				if (!(sender instanceof Player)) {
 					sender.sendMessage("This Command can only be run by a player!");
 					
 				return true;
@@ -79,4 +79,3 @@ public class Commands implements CommandExecutor {
 		return false;
 	}
 }
-
