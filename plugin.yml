@@ -6,7 +6,7 @@ author: Theron Boerner
 commands:
   War:
     description: This is a blank command
-    usage: /war declare [command] type /war help for more info.
+    usage: Either Something is broke or you do NOT have permission to use that!
 permissions:
-  war:
+  war.commands:
     description: All permissions
