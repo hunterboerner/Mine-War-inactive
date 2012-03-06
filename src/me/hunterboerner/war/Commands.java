@@ -7,7 +7,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
 public class Commands implements CommandExecutor {
 	public Commands(War war) {
 		}
@@ -34,7 +33,7 @@ public class Commands implements CommandExecutor {
 						player.sendMessage(ChatColor.RED + "You have declared war on " + args[1]);
 						player.getServer().broadcastMessage(ChatColor.RED + player.getDisplayName() + " has declared war on " + args[1]);
 						log.info("[War] " + player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
-						}
+					}
 					
 					else {
 						player.sendMessage("Error, incorrect!");
