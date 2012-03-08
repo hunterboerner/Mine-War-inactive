@@ -1,14 +1,20 @@
 package me.hunterboerner.war;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 
 public class War extends JavaPlugin {
@@ -47,7 +53,9 @@ public class War extends JavaPlugin {
 		if(!warMongers.containsKey(monger)){
 			warMongers.put(monger, Collections.synchronizedSet(new HashSet<Player>()));
 		}
-		return warMongers.get(monger).add(target);
+		boolean result	=	 warMongers.get(monger).add(target);
+		saveMongersFile();
+		return result;
 	}
 	
 	/**
@@ -59,8 +67,26 @@ public class War extends JavaPlugin {
 	 */
 	public boolean removeWar(Player monger, Player target){
 		if(warMongers.containsKey(monger)){
-			return warMongers.get(monger).remove(target);
+			boolean result = warMongers.get(monger).remove(target);
+			saveMongersFile();
+			return result;
 		}
 		return false;
+	}
+	
+	private void saveMongersFile(){
+		File configFile				=	new File(this.getDataFolder(),"WarMongers");
+		FileConfiguration config	=	YamlConfiguration.loadConfiguration(configFile);
+		Iterator<Player> pitr		=	warMongers.keySet().iterator();
+		while(pitr.hasNext()){
+			Player monger					=	pitr.next();
+			config.set(monger.getName(), warMongers.get(monger));			
+		}
+		try {
+			config.save(configFile);
+		} catch (IOException e) {
+			log.log(Level.WARNING,"Unable to save the configuration to disk: "+configFile.toString(), e);
+		}
+		
 	}
 }
