@@ -39,10 +39,10 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were already at war with that person!");
 								return true;
 							}
-							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + args[1]);
+							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + target.getDisplayName());
 							for(Player bystander : player.getServer().getOnlinePlayers()){ 
 								if(!bystander.equals(player) && !bystander.equals(target)){
-									bystander.sendMessage( player + "has declared war on: " + target );	
+									bystander.sendMessage( player.getDisplayName() + "has declared war on: " + target.getDisplayName() );	
 								}
 							}
 							plugin.logMessage(player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
@@ -65,10 +65,10 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were not at war with that person!");
 								return true;
 							}
-							player.sendMessage(ChatColor.GREEN + "You have made peace with " + args[1]);
+							player.sendMessage(ChatColor.GREEN + "You have made peace with " + target.getDisplayName());
 							for(Player bystander : player.getServer().getOnlinePlayers()){ 
 								if(!bystander.equals(player) && !bystander.equals(target)){
-									bystander.sendMessage( player + "has made peace with: " + target );	
+									bystander.sendMessage( player.getDisplayName() + "has made peace with: " + target.getDisplayName() );	
 								}
 							}
 							plugin.logMessage(player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
