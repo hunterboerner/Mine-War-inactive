@@ -11,22 +11,23 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.bukkit.OfflinePlayer;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.entity.Player;
 
 public class War extends JavaPlugin {
 	private Logger log							=	Logger.getLogger("Minecraft");
 	private Commands cmds						=	new Commands(this);
 	private WarListener warListener				=	new WarListener(this);
-	private Map<Player,Set<Player>> warMongers	=	Collections.synchronizedMap(new HashMap<Player,Set<Player>>());
+	private Map<OfflinePlayer,Set<OfflinePlayer>> warMongers	=	Collections.synchronizedMap(new HashMap<OfflinePlayer,Set<OfflinePlayer>>());
 
 	@Override
 	public void onEnable() {
 		getCommand("war").setExecutor(cmds);
 		getServer().getPluginManager().registerEvents(warListener, this);
+		getMongersFile();
 		logMessage("Enabled");
 		// plugin is being enabled and outputting to the console
 	}
@@ -51,9 +52,9 @@ public class War extends JavaPlugin {
 	 * @param target The person upon which the war is being declared
 	 * @return boolean True if the war was added, false if it was already there
 	 */
-	public boolean addWar(Player monger,Player target){
+	public boolean addWar(OfflinePlayer monger,OfflinePlayer target){
 		if(!warMongers.containsKey(monger)){
-			warMongers.put(monger, Collections.synchronizedSet(new HashSet<Player>()));
+			warMongers.put(monger, Collections.synchronizedSet(new HashSet<OfflinePlayer>()));
 		}
 		boolean result	=	 warMongers.get(monger).add(target);
 		saveMongersFile();
@@ -67,7 +68,7 @@ public class War extends JavaPlugin {
 	 * @param target The person upon which the war was declared
 	 * @return boolean True if the war was removed, false if it was never there
 	 */
-	public boolean removeWar(Player monger, Player target){
+	public boolean removeWar(OfflinePlayer monger, OfflinePlayer target){
 		if(warMongers.containsKey(monger)){
 			boolean result = warMongers.get(monger).remove(target);
 			saveMongersFile();
@@ -77,18 +78,45 @@ public class War extends JavaPlugin {
 	}
 	
 	/**
+	 * Loads the WarMongers file from the config directory into the memory map
+	 * My hope is this will not cause a problem because of reading the list from disk
+	 * and then writing to the same config through addWar
+	 */
+	private void getMongersFile(){
+		File configFile				=	new File(this.getDataFolder(),"WarMongers");
+		if(configFile.exists()){
+			FileConfiguration config	=	YamlConfiguration.loadConfiguration(configFile);
+			Iterator<String> kitr		=	config.getKeys(false).iterator();
+			while(kitr.hasNext()){
+				String mongerName		=	kitr.next();
+				OfflinePlayer monger	=	getServer().getOfflinePlayer(mongerName);
+				if(config.isList(mongerName)){
+					Iterator<String> titr	=	config.getStringList(mongerName).iterator();
+					while(titr.hasNext()){
+						String targetName		=	titr.next();
+						OfflinePlayer target	=	getServer().getOfflinePlayer(targetName);
+						if(monger!=null && target!=null){
+							addWar(monger, target);
+						}
+					}
+				}
+			}
+		}
+	}
+	
+	/**
 	 * Saves the current warMongers and their targets to a config file in the directory
 	 */
 	private void saveMongersFile(){
 		File configFile				=	new File(this.getDataFolder(),"WarMongers");
 		FileConfiguration config	=	YamlConfiguration.loadConfiguration(configFile);
-		Iterator<Player> pitr		=	warMongers.keySet().iterator();
+		Iterator<OfflinePlayer> pitr		=	warMongers.keySet().iterator();
 		while(pitr.hasNext()){
-			Player monger					=	pitr.next();
+			OfflinePlayer monger			=	pitr.next();
 			String[] names					=	new String[warMongers.get(monger).size()];
-			Iterator<Player> titr			=	warMongers.get(monger).iterator();
+			Iterator<OfflinePlayer> titr	=	warMongers.get(monger).iterator();
 			while(titr.hasNext()){
-				names[names.length]	=	titr.next().getDisplayName();
+				names[names.length]	=	titr.next().getName();
 			}
 			
 			config.set(monger.getName(), names);			
@@ -108,7 +136,7 @@ public class War extends JavaPlugin {
 	 * @param target The second player to check
 	 * @return boolean True if a player is at war with another, false otherwise
 	 */
-	public boolean areAtWar(Player monger,Player target){
+	public boolean areAtWar(OfflinePlayer monger,OfflinePlayer target){
 		boolean hasTarget	=	false;
 		if(warMongers.containsKey(monger)){
 			hasTarget	=	warMongers.get(monger).contains(target);
