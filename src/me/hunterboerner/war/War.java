@@ -18,9 +18,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 public class War extends JavaPlugin {
-	private Logger log							=	Logger.getLogger("Minecraft");
-	private Commands cmds						=	new Commands(this);
-	private WarListener warListener				=	new WarListener(this);
+	private Logger log											=	Logger.getLogger("Minecraft");
+	private Commands cmds										=	new Commands(this);
+	private WarListener warListener								=	new WarListener(this);
 	private Map<OfflinePlayer,Set<OfflinePlayer>> warMongers	=	Collections.synchronizedMap(new HashMap<OfflinePlayer,Set<OfflinePlayer>>());
 
 	@Override
@@ -145,6 +145,23 @@ public class War extends JavaPlugin {
 			hasTarget	=	warMongers.get(target).contains(monger);
 		}
 		
+		return hasTarget;
+	}
+	
+	/**
+	 * Checks to see if a player has declared war on another player
+	 * This differs from areAtWar in that it will not return true if the target
+	 * had declared war on the monger
+	 * 
+	 * @param monger The player who may have declared war
+	 * @param target The player whom may have had war declared upon them
+	 * @return True if monger has declared war on target, false otherwise
+	 */
+	public boolean isAtWarWith(OfflinePlayer monger,OfflinePlayer target){
+		boolean hasTarget	=	false;
+		if(warMongers.containsKey(monger)){
+			hasTarget	=	warMongers.get(monger).contains(target);
+		}
 		return hasTarget;
 	}
 }
