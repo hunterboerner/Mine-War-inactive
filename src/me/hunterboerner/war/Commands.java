@@ -42,7 +42,7 @@ public class Commands implements CommandExecutor {
 							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + args[1]);
 							for(Player bystander : player.getServer().getOnlinePlayers()){ if(!bystander.equals(player) && !bystander.equals(target))
 							{
-							player.getServer().broadcastMessage( player + "has declared war on: " + target );	
+							bystander.sendMessage( player + "has declared war on: " + target );	
 							}
 							}
 							plugin.logMessage(player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
@@ -68,7 +68,7 @@ public class Commands implements CommandExecutor {
 							player.sendMessage(ChatColor.GREEN + "You have made peace with " + args[1]);
 							for(Player bystander : player.getServer().getOnlinePlayers()){ if(!bystander.equals(player) && !bystander.equals(target))
 							{
-							player.getServer().broadcastMessage( player + "has made peace with: " + target );	
+							bystander.sendMessage( player + "has made peace with: " + target );	
 							}
 							}
 							plugin.logMessage(player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
