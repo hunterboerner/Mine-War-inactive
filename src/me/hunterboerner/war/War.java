@@ -20,11 +20,13 @@ import org.bukkit.entity.Player;
 public class War extends JavaPlugin {
 	private Logger log							=	Logger.getLogger("Minecraft");
 	private Commands cmds						=	new Commands(this);
+	private WarListener warListener				=	new WarListener(this);
 	private Map<Player,Set<Player>> warMongers	=	Collections.synchronizedMap(new HashMap<Player,Set<Player>>());
 
 	@Override
 	public void onEnable() {
 		getCommand("war").setExecutor(cmds);
+		getServer().getPluginManager().registerEvents(warListener, this);
 		logMessage("Enabled");
 		// plugin is being enabled and outputting to the console
 	}
@@ -74,6 +76,9 @@ public class War extends JavaPlugin {
 		return false;
 	}
 	
+	/**
+	 * Saves the current warMongers and their targets to a config file in the directory
+	 */
 	private void saveMongersFile(){
 		File configFile				=	new File(this.getDataFolder(),"WarMongers");
 		FileConfiguration config	=	YamlConfiguration.loadConfiguration(configFile);
@@ -94,5 +99,24 @@ public class War extends JavaPlugin {
 			log.log(Level.WARNING,"Unable to save the configuration to disk: "+configFile.toString(), e);
 		}
 		
+	}
+	
+	/**
+	 * Checks to see if two players are at war
+	 * 
+	 * @param monger The first player to check
+	 * @param target The second player to check
+	 * @return boolean True if a player is at war with another, false otherwise
+	 */
+	public boolean areAtWar(Player monger,Player target){
+		boolean hasTarget	=	false;
+		if(warMongers.containsKey(monger)){
+			hasTarget	=	warMongers.get(monger).contains(target);
+		}
+		if(!hasTarget && warMongers.containsKey(target)){
+			hasTarget	=	warMongers.get(target).contains(monger);
+		}
+		
+		return hasTarget;
 	}
 }
