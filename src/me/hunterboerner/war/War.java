@@ -1,14 +1,16 @@
 package me.hunterboerner.war;
 
+import java.util.logging.Logger;
+
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 
 public class War extends JavaPlugin {
-	private Commands cmds;
+	private Logger log		=	Logger.getLogger("Minecraft");
+	private Commands cmds	=	new Commands(this);;
 
 	@Override
 	public void onEnable() {
-		cmds = new Commands(this);
 		getCommand("war").setExecutor(cmds);
 		PluginDescriptionFile pdfFile = this.getDescription();
 		System.out.println(pdfFile.getName() + " version "
@@ -24,5 +26,10 @@ public class War extends JavaPlugin {
 				+ pdfFile.getVersion() + " Is Disabled ");
 		// Same as enable but turns it off
 
+	}
+	
+	public void logMessage(String msg){
+		PluginDescriptionFile pdFile	=	this.getDescription();
+		log.info("["+pdFile.getName()+" "+pdFile.getVersion()+"]: "+msg);
 	}
 }
