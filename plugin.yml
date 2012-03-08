@@ -6,7 +6,7 @@ author: Theron Boerner
 commands:
   War:
     description: This is a blank command
-    usage: Either Something is broke or you do NOT have permission to use that!
+    usage: Usage is /war <declare,truce,world> <target player>
 permissions:
   war.commands:
     description: All permissions
