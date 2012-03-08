@@ -80,7 +80,13 @@ public class War extends JavaPlugin {
 		Iterator<Player> pitr		=	warMongers.keySet().iterator();
 		while(pitr.hasNext()){
 			Player monger					=	pitr.next();
-			config.set(monger.getName(), warMongers.get(monger));			
+			String[] names					=	new String[warMongers.get(monger).size()];
+			Iterator<Player> titr			=	warMongers.get(monger).iterator();
+			while(titr.hasNext()){
+				names[names.length]	=	titr.next().getDisplayName();
+			}
+			
+			config.set(monger.getName(), names);			
 		}
 		try {
 			config.save(configFile);
