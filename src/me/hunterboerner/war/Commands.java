@@ -39,9 +39,12 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were already at war with that person!");
 								return true;
 							}
-							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + target.getDisplayName());
-							player.getServer().broadcastMessage(ChatColor.DARK_PURPLE + player.getDisplayName() + " has declared war on " + target.getDisplayName());
-							target.sendMessage(ChatColor.DARK_PURPLE +player.getDisplayName()+" has declared war upon you!");
+							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + args[1]);
+							for(Player bystander : player.getServer().getOnlinePlayers()){ if(!bystander.equals(player) && !bystander.equals(target))
+							{
+							player.getServer().broadcastMessage( player + "has declared war on: " + target );	
+							}
+							}
 							plugin.logMessage(player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
 						}else{
 							player.sendMessage(ChatColor.RED +"A target must be specified when declaring war!");
@@ -49,7 +52,7 @@ public class Commands implements CommandExecutor {
 						}
 					}else if(args[0].equals("world")){
 						player.sendMessage(ChatColor.DARK_PURPLE + "You have started a world war!");
-						player.getServer().broadcastMessage(ChatColor.DARK_PURPLE + player.getDisplayName() + " has started a world war!");
+						player.getServer().broadcastMessage(ChatColor.RED + player.getDisplayName() + " has started a world war!");
 						plugin.logMessage(player.getDisplayName() + " used " + "/war " + args[0]);
 					}else if(args[0].equals("truce")){
 						if(args.length==2){
@@ -62,9 +65,12 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were not at war with that person!");
 								return true;
 							}
-							player.sendMessage(ChatColor.GREEN + "You have made peace with " + target.getDisplayName());
-							player.getServer().broadcastMessage(ChatColor.GREEN + player.getDisplayName() + " has made peace with " + target.getDisplayName());
-							target.sendMessage(ChatColor.GREEN +player.getDisplayName()+" has made peace with you!");
+							player.sendMessage(ChatColor.GREEN + "You have made peace with " + args[1]);
+							for(Player bystander : player.getServer().getOnlinePlayers()){ if(!bystander.equals(player) && !bystander.equals(target))
+							{
+							player.getServer().broadcastMessage( player + "has made peace with: " + target );	
+							}
+							}
 							plugin.logMessage(player.getDisplayName() + " used "  + "/war " + args[0] + " on " + args[1]);
 						}else{
 							player.sendMessage(ChatColor.RED +"A target must be specified when declaring a truce!");
