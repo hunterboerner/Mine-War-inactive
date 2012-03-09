@@ -32,7 +32,7 @@ public class WarListener implements Listener {
 			Player victim 	= 	(Player) event.getEntity();
 			Player killer	=	victim.getKiller();
 			if(plugin.areAtWar(victim, killer)){
-				((PlayerDeathEvent) event).setDeathMessage(ChatColor.DARK_PURPLE + "War has claimed another life. "+ChatColor.WHITE+victim.getDisplayName()+ChatColor.DARK_PURPLE + " was slain by "+ChatColor.WHITE + killer.getDisplayName()+ChatColor.DARK_PURPLE + ".");
+				((PlayerDeathEvent) event).setDeathMessage(ChatColor.DARK_PURPLE + "War has claimed another life. "+ChatColor.WHITE+victim.getName()+ChatColor.DARK_PURPLE + " was slain by "+ChatColor.WHITE + killer.getName()+ChatColor.DARK_PURPLE + ".");
 			}
 		}
 	}
@@ -49,7 +49,7 @@ public class WarListener implements Listener {
 					if(!isAround(event.getPlayer(),(Player) entity)){
 						//The moving player was not already around the entity
 						addNearby(event.getPlayer(),(Player) entity);
-						event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are within range of an enemy! "+((Player) entity).getDisplayName());
+						event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are within range of an enemy! "+((Player) entity).getName());
 					}
 					
 				}
@@ -59,7 +59,7 @@ public class WarListener implements Listener {
 					if(!isAround((Player) entity, event.getPlayer())){
 						//The entity was not already around the moving player
 						addNearby((Player) entity,event.getPlayer());
-						((Player) entity).sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" An enemy has come within range! "+event.getPlayer().getDisplayName());
+						((Player) entity).sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" An enemy has come within range! "+event.getPlayer().getName());
 					}
 					
 				}
@@ -70,7 +70,7 @@ public class WarListener implements Listener {
 			while(pitr.hasNext()){
 				Player wasNearby	=	pitr.next();
 				if(!event.getPlayer().getNearbyEntities(warSight, warSight, warSight).contains(wasNearby) && plugin.isAtWarWith(event.getPlayer(), wasNearby)){
-					event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are no longer in range of an enemy! "+wasNearby.getDisplayName());
+					event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are no longer in range of an enemy! "+wasNearby.getName());
 					removeNearby(event.getPlayer(),wasNearby);
 				}else if(!plugin.isAtWarWith(event.getPlayer(),wasNearby)){
 					removeNearby(event.getPlayer(),wasNearby);
