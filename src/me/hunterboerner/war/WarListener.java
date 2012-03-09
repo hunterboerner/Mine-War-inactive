@@ -65,7 +65,7 @@ public class WarListener implements Listener {
 				}
 			}
 		}
-		if(movers != null){
+		if (movers.get(event.getPlayer()) != null){
 			Iterator<Player> pitr	=	movers.get(event.getPlayer()).iterator();
 			while(pitr.hasNext()){
 				Player wasNearby	=	pitr.next();
