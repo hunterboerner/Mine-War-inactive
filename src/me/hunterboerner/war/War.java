@@ -115,8 +115,10 @@ public class War extends JavaPlugin {
 			OfflinePlayer monger			=	pitr.next();
 			String[] names					=	new String[warMongers.get(monger).size()];
 			Iterator<OfflinePlayer> titr	=	warMongers.get(monger).iterator();
+			int i							=	0;
 			while(titr.hasNext()){
-				names[names.length]	=	titr.next().getName();
+				names[i]	=	titr.next().getName();
+				i++;
 			}
 			
 			config.set(monger.getName(), names);			
