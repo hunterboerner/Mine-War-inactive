@@ -65,18 +65,19 @@ public class WarListener implements Listener {
 				}
 			}
 		}
-		Iterator<Player> pitr	=	movers.get(event.getPlayer()).iterator();
-		while(pitr.hasNext()){
-			Player wasNearby	=	pitr.next();
-			if(!event.getPlayer().getNearbyEntities(warSight, warSight, warSight).contains(wasNearby) && plugin.isAtWarWith(event.getPlayer(), wasNearby)){
-				event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are no longer in range of an enemy! "+wasNearby.getDisplayName());
-				removeNearby(event.getPlayer(),wasNearby);
-			}else if(!plugin.isAtWarWith(event.getPlayer(),wasNearby)){
-				removeNearby(event.getPlayer(),wasNearby);
+		if(movers != null){
+			Iterator<Player> pitr	=	movers.get(event.getPlayer()).iterator();
+			while(pitr.hasNext()){
+				Player wasNearby	=	pitr.next();
+				if(!event.getPlayer().getNearbyEntities(warSight, warSight, warSight).contains(wasNearby) && plugin.isAtWarWith(event.getPlayer(), wasNearby)){
+					event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are no longer in range of an enemy! "+wasNearby.getDisplayName());
+					removeNearby(event.getPlayer(),wasNearby);
+				}else if(!plugin.isAtWarWith(event.getPlayer(),wasNearby)){
+					removeNearby(event.getPlayer(),wasNearby);
+				}
 			}
 		}
 	}
-	
 	private boolean isAround(Player player, Player target){
 		boolean hasTarget	=	false;
 		if(movers.containsKey(player)){
