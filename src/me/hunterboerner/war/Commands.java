@@ -35,6 +35,10 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "Player "+args[1]+" does not exist or is not online.");
 								return true;
 							}
+							if(target.equals(player)){
+								player.sendMessage(ChatColor.RED + "One is always at war with oneself.");
+								return true;
+							}
 							if(!plugin.addWar(player, target)){
 								player.sendMessage(ChatColor.RED + "You were already at war with that person!");
 								return true;
@@ -59,6 +63,10 @@ public class Commands implements CommandExecutor {
 							Player target	=	player.getServer().getPlayer(args[1]);
 							if(target==null){
 								player.sendMessage(ChatColor.RED + "Player "+args[1]+" does not exist or is not online.");
+								return true;
+							}
+							if(target.equals(player)){
+								player.sendMessage(ChatColor.RED + "One should always be at peace with ones self.");
 								return true;
 							}
 							if(!plugin.removeWar(player, target)){
