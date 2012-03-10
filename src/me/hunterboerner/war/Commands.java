@@ -43,6 +43,9 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were already at war with that person!");
 								return true;
 							}
+							if(!plugin.addWar(target, player)){
+								return true;
+							}
 							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + target.getName());
 							for(Player bystander : player.getServer().getOnlinePlayers()){ 
 								if(!bystander.equals(player) && !bystander.equals(target)){
@@ -71,6 +74,9 @@ public class Commands implements CommandExecutor {
 							}
 							if(!plugin.removeWar(player, target)){
 								player.sendMessage(ChatColor.RED + "You were not at war with that person!");
+								return true;
+							}
+							if(!plugin.removeWar(target, player)){
 								return true;
 							}
 							player.sendMessage(ChatColor.GREEN + "You have made peace with " + target.getName());
