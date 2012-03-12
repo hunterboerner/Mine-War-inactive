@@ -21,12 +21,14 @@ public class War extends JavaPlugin {
 	private Logger log											=	Logger.getLogger("Minecraft");
 	private Commands cmds										=	new Commands(this);
 	private WarListener warListener								=	new WarListener(this);
+	private DamageListener damageListener						= 	new DamageListener(this);
 	private Map<OfflinePlayer,Set<OfflinePlayer>> warMongers	=	Collections.synchronizedMap(new HashMap<OfflinePlayer,Set<OfflinePlayer>>());
 
 	@Override
 	public void onEnable() {
 		getCommand("war").setExecutor(cmds);
 		getServer().getPluginManager().registerEvents(warListener, this);
+		getServer().getPluginManager().registerEvents(damageListener, this);
 		getMongersFile();
 		logMessage("Enabled");
 		// plugin is being enabled and outputting to the console
