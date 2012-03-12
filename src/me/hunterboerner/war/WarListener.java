@@ -33,6 +33,7 @@ public class WarListener implements Listener {
 			Player killer	=	victim.getKiller();
 			if(plugin.areAtWar(victim, killer)){
 				((PlayerDeathEvent) event).setDeathMessage(ChatColor.DARK_PURPLE + "War has claimed another life. "+ChatColor.WHITE+victim.getName()+ChatColor.DARK_PURPLE + " was slain by "+ChatColor.WHITE + killer.getName()+ChatColor.DARK_PURPLE + ".");
+				plugin.removeWar(victim, killer);
 			}
 		}
 	}
