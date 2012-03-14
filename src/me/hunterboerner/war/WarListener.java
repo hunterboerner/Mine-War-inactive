@@ -33,7 +33,6 @@ public class WarListener implements Listener {
 			Player killer	=	victim.getKiller();
 			if(plugin.areAtWar(victim, killer)){
 				((PlayerDeathEvent) event).setDeathMessage(ChatColor.DARK_PURPLE + "War has claimed another life. "+ChatColor.WHITE+victim.getName()+ChatColor.DARK_PURPLE + " was slain by "+ChatColor.WHITE + killer.getName()+ChatColor.DARK_PURPLE + ".");
-				plugin.removeWar(victim, killer);
 			}
 		}
 	}
@@ -72,9 +71,9 @@ public class WarListener implements Listener {
 				Player wasNearby	=	pitr.next();
 				if(!event.getPlayer().getNearbyEntities(warSight, warSight, warSight).contains(wasNearby) && plugin.isAtWarWith(event.getPlayer(), wasNearby)){
 					event.getPlayer().sendMessage(ChatColor.DARK_PURPLE+"[WAR] "+ChatColor.WHITE+" You are no longer in range of an enemy! "+wasNearby.getName());
-					removeNearby(event.getPlayer(),wasNearby);
+					pitr.remove();
 				}else if(!plugin.isAtWarWith(event.getPlayer(),wasNearby)){
-					removeNearby(event.getPlayer(),wasNearby);
+					pitr.remove();
 				}
 			}
 		}
@@ -94,6 +93,7 @@ public class WarListener implements Listener {
 		movers.get(player).add(target);
 	}
 	
+	@SuppressWarnings("unused")
 	private void removeNearby(Player player, Player target){
 		if(movers.containsKey(player)){
 			movers.get(player).remove(target);

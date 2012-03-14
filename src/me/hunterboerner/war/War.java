@@ -27,7 +27,7 @@ public class War extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		getCommand("war").setExecutor(cmds);
-		//getServer().getPluginManager().registerEvents(warListener, this);
+		getServer().getPluginManager().registerEvents(warListener, this);
 		getServer().getPluginManager().registerEvents(damageListener, this);
 		getMongersFile();
 		logMessage("Enabled");
