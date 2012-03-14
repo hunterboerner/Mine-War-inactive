@@ -43,7 +43,10 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were already at war with that person!");
 								return true;
 							}
-							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " + target.getName());
+							
+							player.sendMessage(ChatColor.DARK_PURPLE + "You have declared war on " +ChatColor.WHITE+ target.getName());
+							target.sendMessage(player.getName()+ChatColor.DARK_PURPLE +" has declared war on you!");
+							
 							plugin.logMessage("Chekcing "+player.getServer().getOnlinePlayers().length+" online players to send the declare notification.");
 							for(Player bystander : player.getServer().getOnlinePlayers()){ 
 								plugin.logMessage("Chekcing "+bystander.getName()+" to see if a message should be sent.");
@@ -76,7 +79,10 @@ public class Commands implements CommandExecutor {
 								player.sendMessage(ChatColor.RED + "You were not at war with that person!");
 								return true;
 							}
-							player.sendMessage(ChatColor.GREEN + "You have made peace with " + target.getName());
+							
+							player.sendMessage(ChatColor.GREEN + "You have made peace with " +ChatColor.WHITE+ target.getName());
+							target.sendMessage(player.getName()+ChatColor.GREEN+" has made peace with you!");
+							
 							plugin.logMessage("Chekcing "+player.getServer().getOnlinePlayers().length+" online players to send the truce notification.");
 							for(Player bystander : player.getServer().getOnlinePlayers()){ 
 								plugin.logMessage("Chekcing "+bystander.getName()+" to see if a message should be sent.");
